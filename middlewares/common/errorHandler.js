@@ -4,7 +4,7 @@ const notFoundHandler = (req, res, next) => {
     next(createError(404, 'Your requested content not found'));
 };
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
     res.locals.error = process.env.NODE_ENV === 'development' ? err : { message: err.message };
     res.status(err.statu || 500);
 

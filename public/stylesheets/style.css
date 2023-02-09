@@ -343,6 +343,7 @@ input[type="submit"]:active {
 #chat-title > img {
   cursor: pointer;
   height: 30px;
+  object-fit: cover;
 }
 
 #chat-title > img:hover {

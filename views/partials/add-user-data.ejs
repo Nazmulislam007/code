@@ -1,0 +1,61 @@
+<div id="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+      <tbody id="users-table">
+        <% users.forEach((user)=>{ %>
+        <tr id="<%= user._id %>">
+          <td class="name">
+            <% if(user.avatar){ %>
+            <img src="./uploads/avatars/<%= user.avatar %>" />
+            <% } else { %>
+            <img src="./images/nophoto.png">
+            <% } %>
+            <span><%= user.name %></span>
+          </td>
+          <td><%= user.email %></td>
+          <td class="manage">
+            <img src="./images/trash.png" alt="Delete" onclick="deleteUser('<%= user._id %>')"/>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script>
+    const deleteUser = async (id) =>{
+      const res = await fetch(`users/${id}`, {
+        method: "DELETE"
+      })
+      const data = await res.json();
+      
+      if(data.error) return Toastify({
+      text: data.message,
+      duration: 1000,
+      style: {
+        background: "red",
+      },
+    }).showToast()
+
+      Toastify({
+      text: data.message,
+      duration: 1000,
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+    }).showToast()
+
+    document.getElementById(id).remove()
+
+    }
+
+   
+
+  </script>
