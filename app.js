@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const moment = require('moment');
 
 // internal imports
 const { notFoundHandler, errorHandler } = require('./middlewares/common/errorHandler');
@@ -13,6 +15,8 @@ const usersRouter = require('./router/usersRouter');
 
 const app = express();
 dotenv.config();
+
+app.locals.moment = moment;
 
 mongoose.set('strictQuery', true);
 async function main() {

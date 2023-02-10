@@ -20,20 +20,22 @@ const login = async (req, res) => {
             if (isValidPassword) {
                 // prepare the user object to generate token;
                 const userObject = {
+                    userId: user._id,
                     name: user.name,
                     email: user.email,
                     mobile: user.mobile,
-                    role: 'user',
+                    role: user.role || 'user',
+                    avatar: user.avatar || null,
                 };
 
                 // generate token
                 const token = jwt.sign(userObject, process.env.JWT_SECRET, {
-                    expiresIn: 600000,
+                    expiresIn: 3600000,
                 });
 
                 // set cookies
                 res.cookie(process.env.COOKIE_NAME, token, {
-                    maxAge: 600000,
+                    maxAge: 3600000,
                     signed: true,
                     httpOnly: true,
                 });
