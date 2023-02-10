@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getLogin, login } = require('../controller/loginController');
+const { getLogin, login, logout } = require('../controller/loginController');
 const { redirectLoggedIn } = require('../middlewares/common/checkLogin');
 const decorateHtmlResponse = require('../middlewares/common/decorateHtmlResponse');
 const {
@@ -18,5 +18,7 @@ router.post(
     doLoginValidationHandler,
     login
 );
+
+router.delete('/', logout);
 
 module.exports = router;

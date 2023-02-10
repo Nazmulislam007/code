@@ -14,9 +14,32 @@
     <script src="./js/toastify.js"></script>
   </head>
   <body>
-    <div class="menu">
+    <div class="menu">      
       <div class="menu-item"><a href="/inbox">Inbox</a></div>
       <div class="menu-item"><a href="/users">Users</a></div>
+      <% if (loggedInUser && loggedInUser.name) { %>
+      <div class="menu-item"><a href="#" onclick="logout()">Logout</a></div>
+      <% } else { %>
       <div class="menu-item"><a href="/">Login</a></div>
+      <% } %>
     </div>
+
+    <script>
+
+      const toast = Toastify({
+      text: "Logout successfully",
+      duration: 1000,
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+      })
+
+      function logout (){
+        fetch('/',{ method: 'DELETE'})
+        toast.showToast()
+        setTimeout(()=>{
+          window.location.replace("/")
+        },1000)
+      }
+    </script>
     

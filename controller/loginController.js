@@ -28,12 +28,12 @@ const login = async (req, res) => {
 
                 // generate token
                 const token = jwt.sign(userObject, process.env.JWT_SECRET, {
-                    expiresIn: 60000,
+                    expiresIn: 600000,
                 });
 
                 // set cookies
                 res.cookie(process.env.COOKIE_NAME, token, {
-                    maxAge: 60000,
+                    maxAge: 600000,
                     signed: true,
                     httpOnly: true,
                 });
@@ -61,4 +61,9 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { getLogin, login };
+const logout = (req, res) => {
+    res.clearCookie(process.env.COOKIE_NAME);
+    res.send('logout');
+};
+
+module.exports = { getLogin, login, logout };
